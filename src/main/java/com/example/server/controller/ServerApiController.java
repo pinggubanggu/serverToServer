@@ -3,6 +3,7 @@ package com.example.server.controller;
 import com.example.server.dto.Req;
 import com.example.server.dto.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,12 +43,15 @@ public class ServerApiController {
 
   // @RequestBody가 Req<User> 인 version
   @PostMapping("/user/{userId}/name/{userName}")
-  public Req<User> post(@RequestBody Req<User> user,
-      @PathVariable int userId,
-      @PathVariable String userName,
-      @RequestHeader("x-authorization") String authorization,
-      @RequestHeader("custom-header") String customHeader) {
+  public Req<User> post(
+                        //HttpEntity<String> entity,
+                        @RequestBody Req<User> user,
+                        @PathVariable int userId,
+                        @PathVariable String userName,
+                        @RequestHeader("x-authorization") String authorization,
+                        @RequestHeader("custom-header") String customHeader) {
 
+    // log.info("req : {}", entity.getBody());
     log.info("userId : {}, userName: {}", userId, userName);
     log.info("client req : {}", user);
     log.info("authorization : {}, custom-header: {}", authorization, customHeader);
